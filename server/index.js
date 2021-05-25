@@ -33,6 +33,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!!!!!');
 });
 
+app.get('/api/hello', (req, res) => {
+  res.send('hello axios');
+})
+
 app.post('/api/users/register', (req, res) => {
   const user = new User(req.body);
 
