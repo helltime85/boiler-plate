@@ -44,19 +44,19 @@ app.post('/api/users/register', (req, res) => {
     if(err) {
       return res.json({ success: false, err });
     }  
-    return res.status(200).json({ sucess: true });
+    return res.status(200).json({ success: true });
   });
 });
 
 app.post('/api/users/login', (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if(!user) {
-      return res.json({ loginSucess: false, message: "not found userMail" });
+      return res.json({ loginSuccess: false, message: "not found userMail" });
     }
 
     user.comparePassword(req.body.password, (err, isMatch) => {
       if(!isMatch) {
-        return res.json({ loginSucess: false, message: "password wrong" });
+        return res.json({ loginSuccess: false, message: "password wrong" });
       }
 
       user.generateToken((err, user) => {
@@ -64,7 +64,7 @@ app.post('/api/users/login', (req, res) => {
 
         res.cookie("x_auth", user.token)
           .status(200)
-          .json({ loginSucess: true, userId: user._id });
+          .json({ loginSuccess: true, userId: user._id });
       });
     });
   });
